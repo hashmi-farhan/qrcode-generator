@@ -35,3 +35,29 @@
 #     print("your qr code has been successfully generated!")
 
 # generate_qr_code("https://github.com/hashmi-farhan/contact-book/tree/master","github_qr.png")
+
+
+#agar online transaction wala qr code banana h to 
+import qrcode
+from urllib.parse import quote
+
+# User se input
+upi_id = input("Enter UPI ID (jiska QR banana hai): ").strip()
+payee_name = input("Enter payee name (jisko paisa milega): ").strip()
+
+# Optional: fixed amount chahiye to ye line uncomment karo
+# amount = input("Enter amount (khali chhodne par open amount): ").strip()
+
+# UPI link banao
+upi_link = f"upi://pay?pa={upi_id}&pn={quote(payee_name)}&cu=INR"
+
+# Agar amount diya hai to add karo
+# if amount:
+#     upi_link += f"&am={amount}"
+
+# QR code banao
+qr = qrcode.QRCode()
+qr.add_data(upi_link)
+img = qr.make_image()
+img.save("payment_qr.png")
+print("QR code ban gaya!")
